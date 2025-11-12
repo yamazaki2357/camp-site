@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タグ一覧 - Camp Site</title>
+  <meta name="description" content="タグから記事を探す">
+  <link rel="stylesheet" href="assets/css/normalize.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="site-branding">
+        <a href="index.html" class="site-title">Camp Site</a>
+      </div>
+
+      <nav class="site-nav" aria-label="メインナビゲーション">
+        <a href="index.html">ホーム</a>
+        <a href="categories.html">カテゴリ</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">お問い合わせ</a>
+      </nav>
+    </div>
+  </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="page-header">
+        <h1>タグ一覧</h1>
+        <p>人気のタグから記事を探せます</p>
+      </div>
+
+      <div class="tags-cloud" style="margin-bottom: var(--spacing-xl);">
+        <a href="#キャンプ場" class="tag-item">キャンプ場 <span class="tag-count">(1)</span></a>
+        <a href="#紅葉" class="tag-item">紅葉 <span class="tag-count">(1)</span></a>
+        <a href="#初心者" class="tag-item">初心者 <span class="tag-count">(2)</span></a>
+        <a href="#レシピ" class="tag-item">レシピ <span class="tag-count">(1)</span></a>
+        <a href="#防寒" class="tag-item">防寒 <span class="tag-count">(1)</span></a>
+        <a href="#秋冬キャンプ" class="tag-item">秋冬キャンプ <span class="tag-count">(1)</span></a>
+        <a href="#ギアレビュー" class="tag-item">ギアレビュー <span class="tag-count">(1)</span></a>
+      </div>
+
+      <div class="categories-list">
+        <div class="category-item" id="キャンプ場">
+          <h2>キャンプ場</h2>
+          <ul class="footer-links">
+            <li><a href="posts/2025-11-12-first-camp.html">【初心者向け】秋の紅葉キャンプ場レポート｜A区画完全ガイド</a></li>
+          </ul>
+        </div>
+
+        <div class="category-item" id="紅葉">
+          <h2>紅葉</h2>
+          <ul class="footer-links">
+            <li><a href="posts/2025-11-12-first-camp.html">【初心者向け】秋の紅葉キャンプ場レポート｜A区画完全ガイド</a></li>
+          </ul>
+        </div>
+
+        <div class="category-item" id="初心者">
+          <h2>初心者</h2>
+          <ul class="footer-links">
+            <li><a href="posts/2025-11-12-first-camp.html">【初心者向け】秋の紅葉キャンプ場レポート｜A区画完全ガイド</a></li>
+            <li><a href="posts/2025-11-10-mountain-cook.html">キャンプ飯レシピ｜簡単で美味しい山ごはん5選</a></li>
+          </ul>
+        </div>
+
+        <div class="category-item" id="レシピ">
+          <h2>レシピ</h2>
+          <ul class="footer-links">
+            <li><a href="posts/2025-11-10-mountain-cook.html">キャンプ飯レシピ｜簡単で美味しい山ごはん5選</a></li>
+          </ul>
+        </div>
+
+        <div class="category-item" id="防寒">
+          <h2>防寒</h2>
+          <ul class="footer-links">
+            <li><a href="posts/2025-11-08-autumn-gear.html">秋冬キャンプの必需品｜防寒対策ギア10選</a></li>
+          </ul>
+        </div>
+
+        <div class="category-item" id="秋冬キャンプ">
+          <h2>秋冬キャンプ</h2>
+          <ul class="footer-links">
+            <li><a href="posts/2025-11-08-autumn-gear.html">秋冬キャンプの必需品｜防寒対策ギア10選</a></li>
+          </ul>
+        </div>
+
+        <div class="category-item" id="ギアレビュー">
+          <h2>ギアレビュー</h2>
+          <ul class="footer-links">
+            <li><a href="posts/2025-11-08-autumn-gear.html">秋冬キャンプの必需品｜防寒対策ギア10選</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Camp Site</h3>
+        <p>キャンプ場レビューとアウトドア情報を発信するブログ</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>リンク</h3>
+        <ul class="footer-links">
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; <span id="current-year"></span> Camp Site. All rights reserved.</p>
+    </div>
+  </div>
+  </footer>
+
+  <script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
+
+  <script src="js/common.js"></script>
+</body>
+</html>
+
