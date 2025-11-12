@@ -1,19 +1,38 @@
----
-layout: default
-title: "タグ一覧"
-permalink: /tags/
----
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タグ一覧 - Camp Site</title>
+  <meta name="description" content="タグから記事を探す">
+  <link rel="stylesheet" href="/assets/css/normalize.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
 
-<div class="page-header">
-  <h1>タグ一覧</h1>
-  <p>すべてのタグから記事を探せます</p>
-</div>
+  <main>
+    <div class="container">
+      <div class="page-header">
+        <h1>タグ一覧</h1>
+        <p>すべてのタグから記事を探せます</p>
+      </div>
 
-<div class="tags-cloud">
-  {% assign sorted_tags = site.tags | sort %}
-  {% for tag in sorted_tags %}
-    <a href="{{ '/tag/' | append: tag[0] | slugify | append: '/' | relative_url }}" class="tag-item" aria-label="{{ tag[0] }}の記事を見る">
-      {{ tag[0] }} <span class="tag-count">({{ tag[1] | size }})</span>
-    </a>
-  {% endfor %}
-</div>
+      <div class="tags-cloud">
+        <a href="#キャンプ場" class="tag-item">キャンプ場 <span class="tag-count">(1)</span></a>
+        <a href="#紅葉" class="tag-item">紅葉 <span class="tag-count">(1)</span></a>
+        <a href="#初心者" class="tag-item">初心者 <span class="tag-count">(2)</span></a>
+        <a href="#オートキャンプ" class="tag-item">オートキャンプ <span class="tag-count">(1)</span></a>
+        <a href="#レシピ" class="tag-item">レシピ <span class="tag-count">(1)</span></a>
+        <a href="#山ごはん" class="tag-item">山ごはん <span class="tag-count">(1)</span></a>
+        <a href="#防寒" class="tag-item">防寒 <span class="tag-count">(1)</span></a>
+        <a href="#秋冬キャンプ" class="tag-item">秋冬キャンプ <span class="tag-count">(1)</span></a>
+        <a href="#ギアレビュー" class="tag-item">ギアレビュー <span class="tag-count">(1)</span></a>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="/js/common.js"></script>
+</body>
+</html>

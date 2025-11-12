@@ -1,22 +1,52 @@
----
-layout: default
-title: "カテゴリ一覧"
-permalink: /categories/
----
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カテゴリ一覧 - Camp Site</title>
+  <meta name="description" content="カテゴリから記事を探す">
+  <link rel="stylesheet" href="/assets/css/normalize.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
 
-<div class="page-header">
-  <h1>カテゴリ一覧</h1>
-  <p>すべてのカテゴリから記事を探せます</p>
-</div>
+  <main>
+    <div class="container">
+      <div class="page-header">
+        <h1>カテゴリ一覧</h1>
+        <p>すべてのカテゴリから記事を探せます</p>
+      </div>
 
-<div class="categories-list">
-  {% assign sorted_categories = site.categories | sort %}
-  {% for category in sorted_categories %}
-    <div class="category-item">
-      <h2>
-        <a href="{{ '/category/' | append: category[0] | slugify | append: '/' | relative_url }}">{{ category[0] }}</a>
-      </h2>
-      <p>{{ category[1] | size }}件の記事</p>
+      <div class="categories-list">
+        <div class="category-item" id="関東">
+          <h2>関東</h2>
+          <p>1件の記事</p>
+          <ul class="footer-links">
+            <li><a href="/posts/2025-11-12-first-camp.html">【初心者向け】秋の紅葉キャンプ場レポート｜A区画完全ガイド</a></li>
+          </ul>
+        </div>
+
+        <div class="category-item" id="料理">
+          <h2>料理</h2>
+          <p>1件の記事</p>
+          <ul class="footer-links">
+            <li><a href="/posts/2025-11-10-mountain-cook.html">キャンプ飯レシピ｜簡単で美味しい山ごはん5選</a></li>
+          </ul>
+        </div>
+
+        <div class="category-item" id="ギア">
+          <h2>ギア</h2>
+          <p>1件の記事</p>
+          <ul class="footer-links">
+            <li><a href="/posts/2025-11-08-autumn-gear.html">秋冬キャンプの必需品｜防寒対策ギア10選</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
-  {% endfor %}
-</div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="/js/common.js"></script>
+</body>
+</html>
