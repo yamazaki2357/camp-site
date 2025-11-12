@@ -20,19 +20,45 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   // ナビゲーションのアクティブ状態を設定
   setActiveNav();
+
+  // トップへ戻るボタンを設置
+  setupBackToTop();
 });
 
 // 現在のページに応じてナビゲーションのアクティブ状態を設定
 function setActiveNav() {
-  const currentPath = window.location.pathname;
+  const currentPath = window.location.pathname.replace(/\/index\.html$/, '/');
   const navLinks = document.querySelectorAll('.site-nav a');
 
   navLinks.forEach(link => {
-    const linkPath = new URL(link.href).pathname;
-    if (currentPath === linkPath || (currentPath === '/' && linkPath.includes('index.html'))) {
-      link.style.fontWeight = '700';
-      link.style.textDecoration = 'underline';
+    const linkPath = new URL(link.href).pathname.replace(/\/index\.html$/, '/');
+    if (currentPath === linkPath) {
+      link.classList.add('active');
     }
+  });
+}
+
+// トップへ戻るボタン
+function setupBackToTop() {
+  const btn = document.createElement('button');
+  btn.className = 'back-to-top';
+  btn.setAttribute('aria-label', 'トップへ戻る');
+  btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5l7 7-1.41 1.41L13 9.83V19h-2V9.83L6.41 13.41 5 12z"/></svg>';
+  document.body.appendChild(btn);
+
+  function toggle() {
+    if (window.scrollY > 400) {
+      btn.classList.add('show');
+    } else {
+      btn.classList.remove('show');
+    }
+  }
+
+  window.addEventListener('scroll', toggle, { passive: true });
+  toggle();
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 }
 
