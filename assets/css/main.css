@@ -4,11 +4,14 @@
 :root {
   --color-primary: #2c5f2d;
   --color-secondary: #97bc62;
-  --color-text: #333;
+  --color-accent: #00d4ff;
+  --color-accent-2: #8a2be2;
+  --color-text: #222;
   --color-text-light: #666;
-  --color-bg: #fff;
-  --color-bg-light: #f8f9fa;
-  --color-border: #ddd;
+  --color-bg: #ffffff;
+  --color-bg-light: #f5f7f9;
+  --color-bg-elev: #ffffffcc;
+  --color-border: #e6e8eb;
   --color-link: #2c5f2d;
   --color-link-hover: #1a3a1b;
   --spacing-xs: 0.5rem;
@@ -17,8 +20,22 @@
   --spacing-lg: 2rem;
   --spacing-xl: 3rem;
   --max-width: 1200px;
-  --radius: 8px;
-  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --radius: 12px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --blur: saturate(180%) blur(12px);
+}
+
+/* Dark theme variables */
+[data-theme="dark"] {
+  --color-text: #e6e6e6;
+  --color-text-light: #b3b3b3;
+  --color-bg: #0c1014;
+  --color-bg-light: #131922;
+  --color-bg-elev: #0c1014cc;
+  --color-border: #243041;
+  --color-link: #97ffdc;
+  --color-link-hover: #e1ff57;
+  --shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -29,7 +46,7 @@
    タイポグラフィ
 ======================================== */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
   font-size: 16px;
   line-height: 1.7;
   color: var(--color-text);
@@ -40,7 +57,8 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.4;
   margin-top: var(--spacing-lg);
   margin-bottom: var(--spacing-sm);
-  font-weight: 700;
+  font-weight: 800;
+  font-family: 'Outfit', 'Noto Sans JP', system-ui, -apple-system, sans-serif;
 }
 
 h1 { font-size: 2rem; }
@@ -87,13 +105,22 @@ main {
    ヘッダー
 ======================================== */
 .site-header {
-  background-color: var(--color-primary);
-  color: #fff;
+  background-color: transparent;
+  color: var(--color-text);
   padding: var(--spacing-sm) 0;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: var(--shadow);
+  backdrop-filter: var(--blur);
+}
+
+.fancy-header::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,0,0,.1), transparent);
+  pointer-events: none;
 }
 
 .header-inner {
@@ -107,13 +134,12 @@ main {
 .site-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--color-text);
   text-decoration: none;
 }
 
 .site-title:hover {
-  color: #fff;
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .site-nav {
@@ -122,7 +148,7 @@ main {
 }
 
 .site-nav a {
-  color: #fff;
+  color: var(--color-text);
   text-decoration: none;
   font-weight: 500;
 }
@@ -131,13 +157,20 @@ main {
   text-decoration: underline;
 }
 
+/* Mobile nav */
+.nav-toggle {
+  display: none;
+  font-size: 1.4rem;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.25rem 0.5rem;
+}
+
 @media (max-width: 768px) {
-  .site-nav {
-    width: 100%;
-    justify-content: space-around;
-    gap: var(--spacing-sm);
-    font-size: 0.9rem;
-  }
+  .nav-toggle { display: inline-flex; align-items: center; }
+  .site-nav { display: none; width: 100%; padding-top: var(--spacing-xs); }
+  .site-nav.open { display: flex; justify-content: space-between; gap: var(--spacing-sm); flex-wrap: wrap; }
 }
 
 /* ========================================
@@ -617,6 +650,101 @@ main {
 .tag-count {
   font-size: 0.85rem;
   color: var(--color-text-light);
+}
+
+/* ========================================
+   テーマトグル
+======================================== */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-left: auto;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: linear-gradient(180deg, var(--color-bg-elev), var(--color-bg));
+  box-shadow: var(--shadow);
+}
+.theme-toggle .icon-sun { display: inline; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: inline; }
+
+/* ========================================
+   ヒーロー
+======================================== */
+.hero {
+  position: relative;
+  padding: calc(var(--spacing-xl) + 1.5rem) 0 var(--spacing-xl);
+  overflow: hidden;
+}
+.aurora {
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 80vh;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 40% at 20% 20%, rgba(0,212,255,0.35), transparent 60%),
+    radial-gradient(50% 40% at 80% 10%, rgba(138,43,226,0.35), transparent 60%),
+    radial-gradient(50% 50% at 50% 60%, rgba(151,188,98,0.28), transparent 60%);
+  filter: blur(30px) saturate(120%);
+  transform: translateZ(0);
+  animation: floaty 18s ease-in-out infinite alternate;
+}
+@keyframes floaty {
+  0% { transform: translate3d(0,0,0) scale(1); }
+  100% { transform: translate3d(0,-20px,0) scale(1.05); }
+}
+.hero-inner { position: relative; }
+.hero-title {
+  margin: 0 0 var(--spacing-xs);
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, var(--color-text), var(--color-accent));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero-sub {
+  margin: 0 0 var(--spacing-md);
+  color: var(--color-text-light);
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+}
+.hero-cta { display: flex; gap: var(--spacing-sm); flex-wrap: wrap; }
+.cta {
+  display: inline-block;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  font-weight: 700;
+  border: 1px solid var(--color-border);
+  text-decoration: none;
+}
+.cta.primary {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
+  color: #fff;
+  border: none;
+  box-shadow: var(--shadow);
+}
+.cta.ghost { background: transparent; color: var(--color-text); }
+
+/* ========================================
+   リッチなカード効果の上書き
+======================================== */
+.post-card {
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.post-card:hover {
+  transform: translateY(-6px);
+}
+.post-card-image img {
+  transition: transform 0.5s cubic-bezier(.2,.8,.2,1);
+}
+.post-card-title a:hover { color: var(--color-accent); }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
 }
 
 .tag-item:hover .tag-count {
