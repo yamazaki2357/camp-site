@@ -126,12 +126,58 @@ document.addEventListener('DOMContentLoaded', async function() {
   setupScrollAnimations();
   setupHeaderAutoHide();
   setupScrollProgress();
+  setupGroupedListCollapse();
   setupParallaxHeader();
   // トップページ検索の初期化
   setupPostSearch();
   // 念のため、初期ロード時にもリンクを補正
   prefixInternalLinks();
 });
+
+// カテゴリ/タグ一覧の「最新N件以外を折りたたむ」
+function setupGroupedListCollapse() {
+  const MAX_VISIBLE = 5;
+  const groups = document.querySelectorAll('.categories-list .category-item');
+  if (groups.length === 0) return;
+
+  groups.forEach(group => {
+    const list = group.querySelector('ul');
+    if (!list) return;
+
+    const items = Array.from(list.querySelectorAll('li'));
+    const total = items.length;
+    if (total <= MAX_VISIBLE) return;
+
+    const countEl = group.querySelector('p');
+    if (countEl) {
+      countEl.textContent = `${total}件の記事（最新${MAX_VISIBLE}件まで表示）`;
+    }
+
+    items.forEach((li, index) => {
+      if (index >= MAX_VISIBLE) {
+        li.classList.add('is-collapsed');
+      }
+    });
+
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'category-toggle';
+    toggle.textContent = `${total}件すべて表示`;
+
+    let expanded = false;
+    toggle.addEventListener('click', () => {
+      expanded = !expanded;
+      items.forEach((li, index) => {
+        if (index >= MAX_VISIBLE) {
+          li.classList.toggle('is-collapsed', !expanded);
+        }
+      });
+      toggle.textContent = expanded ? '折りたたむ' : `${total}件すべて表示`;
+    });
+
+    group.appendChild(toggle);
+  });
+}
 
 // 現在のページに応じてナビゲーションのアクティブ状態を設定
 function setActiveNav() {
