@@ -36,7 +36,13 @@ function getInlineComponentHtml(elementId) {
         <a href="index.html" class="site-title">Camp Site</a>
       </div>
 
-      <nav class="site-nav" aria-label="メインナビゲーション">
+      <button class="nav-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="メインナビゲーション">
         <a href="index.html">ホーム</a>
         <a href="categories.html">カテゴリ</a>
         <a href="about.html">このサイトについて</a>
@@ -118,6 +124,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   // ナビゲーションのアクティブ状態を設定
   setActiveNav();
+  setupNavToggle();
 
   // トップへ戻るボタンを設置
   setupBackToTop();
@@ -195,6 +202,34 @@ function setActiveNav() {
     if (currentPage === linkPage) {
       link.classList.add('active');
     }
+  });
+}
+
+// モバイル用ハンバーガーメニュー
+function setupNavToggle() {
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.querySelector('.site-nav');
+  if (!toggle || !nav) return;
+
+  const update = (open) => {
+    toggle.classList.toggle('is-open', open);
+    nav.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
+
+  let isOpen = false;
+  toggle.addEventListener('click', () => {
+    isOpen = !isOpen;
+    update(isOpen);
+  });
+
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (isOpen) {
+        isOpen = false;
+        update(false);
+      }
+    });
   });
 }
 
